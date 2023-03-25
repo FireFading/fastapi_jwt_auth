@@ -1,0 +1,1 @@
+example fastapi project with registration and JWT authentication
