@@ -3,7 +3,7 @@ from collections.abc import Generator
 import pytest
 from fastapi import FastAPI, status
 from fastapi.testclient import TestClient
-from main import app as main_app
+from app.main import app as main_app
 
 from tests.config import test_user
 

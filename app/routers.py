@@ -2,8 +2,8 @@ from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi_jwt_auth import AuthJWT
-from schemas import User, UserLogin
-from utils import get_hashed_password, verify_password
+from app.schemas import User, UserLogin
+from app.utils import get_hashed_password, verify_password
 
 
 router = APIRouter(

@@ -2,8 +2,8 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi_jwt_auth import AuthJWT
 from fastapi_pagination import add_pagination
-from routers import router
-from settings import Settings
+from app.routers import router
+from app.settings import Settings
 
 
 @AuthJWT.load_config
