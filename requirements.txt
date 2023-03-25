@@ -1,3 +1,4 @@
+bcrypt
 fastapi
 fastapi-jwt-auth
 pydantic

@@ -3,6 +3,7 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi_jwt_auth import AuthJWT
 from schemas import User, UserLogin
+from utils import get_hashed_password, verify_password
 
 
 router = APIRouter(
@@ -13,7 +14,12 @@ users = []
 
 
 @router.get("/users", response_model=List[User])
-def get_users():
+def get_users(authorize: AuthJWT = Depends()):
+    try:
+        authorize.jwt_required()
+    except Exception as e:
+        raise HTTPException(status_code=401, detail="Invalid token") from e
+
     return users
 
 
@@ -21,7 +27,7 @@ def get_users():
 def register_user(user: User):
     new_user = {
         "username": user.username,
-        "password": user.password,
+        "password": get_hashed_password(password=user.password),
         "email": user.email,
     }
     users.append(new_user)
@@ -32,12 +38,14 @@ def register_user(user: User):
 @router.post("/login")
 def login(user: UserLogin, authorize: AuthJWT = Depends()):
     for u in users:
-        if u.get("username") == user.username and u.get("password") == user.password:
+        if u.get("username") == user.username and verify_password(
+            password=user.password, hashed_password=u.get("password")
+        ):
             access_token = authorize.create_access_token(subject=user.username)
             refresh_token = authorize.create_refresh_token(subject=user.username)
 
             return {"access_token": access_token, "refresh_token": refresh_token}
-        raise HTTPException(status_code=401, detail="Invalid username or password")
+    raise HTTPException(status_code=401, detail="Invalid username or password")
 
 
 @router.get("/protected")
