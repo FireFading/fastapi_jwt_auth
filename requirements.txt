@@ -1,4 +1,5 @@
 bcrypt
+nox
 fastapi
 fastapi-jwt-auth
 fastapi_pagination
