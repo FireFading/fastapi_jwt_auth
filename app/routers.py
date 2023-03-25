@@ -10,7 +10,7 @@ router = APIRouter(
     prefix="/accounts", tags=["accounts"], responses={404: {"description": "Not found"}}
 )
 
-users = []
+users: list = []
 
 
 @router.get(
