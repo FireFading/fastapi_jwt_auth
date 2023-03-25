@@ -1,4 +1,5 @@
 bcrypt
+httpx
 nox
 fastapi
 fastapi-jwt-auth
