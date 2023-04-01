@@ -1,14 +1,10 @@
-from typing import List
-
 from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi_jwt_auth import AuthJWT
+
 from app.schemas import User, UserLogin
 from app.utils import get_hashed_password, verify_password
+from fastapi_jwt_auth import AuthJWT
 
-
-router = APIRouter(
-    prefix="/accounts", tags=["accounts"], responses={404: {"description": "Not found"}}
-)
+router = APIRouter(prefix="/accounts", tags=["accounts"], responses={404: {"description": "Not found"}})
 
 users: list = []
 
@@ -16,16 +12,14 @@ users: list = []
 @router.get(
     "/users",
     status_code=status.HTTP_200_OK,
-    response_model=List[User],
+    response_model=list[User],
     summary="get all registered users that",
 )
 def get_users(authorize: AuthJWT = Depends()):
     try:
         authorize.jwt_required()
     except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token"
-        ) from e
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token") from e
 
     return users
 
@@ -52,9 +46,7 @@ def login(user: UserLogin, authorize: AuthJWT = Depends()):
             refresh_token = authorize.create_refresh_token(subject=user.username)
 
             return {"access_token": access_token, "refresh_token": refresh_token}
-    raise HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid username or password"
-    )
+    raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid username or password")
 
 
 @router.get(
@@ -66,9 +58,7 @@ def get_logged_in_user(authorize: AuthJWT = Depends()):
     try:
         authorize.jwt_required()
     except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token"
-        ) from e
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token") from e
 
     current_user = authorize.get_jwt_subject()
 
@@ -84,9 +74,7 @@ def create_new_token(authorize: AuthJWT = Depends()):
     try:
         authorize.jwt_refresh_token_required()
     except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token"
-        ) from e
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token") from e
 
     current_user = authorize.get_jwt_subject()
     access_token = authorize.create_access_token(subject=current_user)
