@@ -3,7 +3,7 @@
 ## run
 - `docker compose up --build` in root
 
-### before run change .env.example to .env and add change example variables to real
+### before run change .env.example to .env and change example variables to real
 
 ## formatting and linting
 - run brunette: `brunette --config=setup.cfg app`
