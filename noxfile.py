@@ -17,7 +17,6 @@ def format(session: nox.Session) -> None:
 
 @nox.session
 def lint(session: nox.Session) -> None:
-    session.install("flake8", "mypy", "ruff")
+    session.install("flake8", "mypy")
     session.run("flake8", "--config=setup.cfg", "app")
     session.run("mypy", "--config-file=setup.cfg", "app")
-    session.run("ruff", "--show-source", "--fix", "app")

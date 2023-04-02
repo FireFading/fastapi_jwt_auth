@@ -9,7 +9,7 @@
 - run brunette: `brunette --config=setup.cfg app`
 - run isort: `isort --sp=setup.cfg app`
 - run flake8: `flake8 --config=setup.cfg`
-- run ruff: `ruff --show-source --fix app`
+- tun mypy: `mypy --config-file=setup.cfg app`
 
 ## testing
 - =`pytest` in root
