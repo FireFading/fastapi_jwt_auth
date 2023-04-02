@@ -5,7 +5,7 @@ import nox
 def tests(session):
     session.install("-r", "requirements.txt")
     session.install('pytest')
-    session.run('pytest')
+    session.run('pytest', ".")
 
 
 @nox.session
