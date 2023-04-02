@@ -9,7 +9,7 @@ from fastapi_jwt_auth import AuthJWT
 
 @AuthJWT.load_config
 def get_config():
-    return Settings()
+    return Settings(_env_file=".env.example")
 
 
 app = FastAPI()
