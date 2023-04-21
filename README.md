@@ -1,9 +1,18 @@
-## example fastapi project with registration and JWT authentication
+# FastAPI JWT-auth project
+
+## Features:
+- JWT-authentication
+- actions with User model
+- registration/login
+- testing
+
+## installation
+- change .env.example to .env and change example variables to real
 
 ## run
-- `docker compose up --build` in root
-
-### before run change .env.example to .env and change example variables to real
+```bash
+  docker compose up --build
+ ``` 
 
 ## formatting and linting
 - run brunette: `brunette --config=setup.cfg app`
@@ -12,7 +21,7 @@
 - tun mypy: `mypy --config-file=setup.cfg app`
 
 ## testing
-- =`pytest` in root
+- `pytest` in root
 
 ## nox
 - for format and run tests: `nox` in root
